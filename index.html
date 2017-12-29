@@ -1,0 +1,42 @@
+<!-- Shubham Khuva -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Range Date Selector Calendar </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="assets/css/reset.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/pegasusCalendar.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/pegasus_combined_css.min.css" rel="stylesheet" type="text/css"/>
+        
+        <script src="assets/js/jquery.js" type="text/javascript"></script>
+        <script src="assets/js/msCalendar.js" type="text/javascript"></script>
+        <script src="assets/js/pegasusCalendar.js" type="text/javascript"></script>
+
+        <style>
+            .middle{text-align: center;}
+            input.calendar{ width: 200px; padding: 10px; text-align: left;}
+        </style>
+    </head>
+    <body>
+        <div class="middle">
+           <input type="text" placeholder="Depart date to Return date" value="Depart date to Return date" class="calendar" id="input-date2">
+            <input type="text" placeholder="Depart date to Return date" value="Depart date to Return date" class="calendar" id="input-date3">
+        </div>
+
+        <div id="CalHolder2"></div>
+        <div id="CalHolder3"></div>
+
+        <script>
+            var serverDate = new Date();
+
+            var objPC2 = new PegasusCalendar({
+                restrictDate: new Date(),
+                departEle: '#input-date2',
+            	returnEle: '#input-date3'
+            });
+
+        </script>
+    </body>
+</html>

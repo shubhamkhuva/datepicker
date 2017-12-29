@@ -1,0 +1,328 @@
+@import "compass/css3";
+
+/*@include font-face('Proxima Regular','../fonts/proxima/ProximaNova-Regular');*/
+
+@font-face {
+    font-family: "Proxima Regular";
+    src: url("../fonts/proxima/ProximaNova-Regular.eot");
+    src: url("../fonts/proxima/ProximaNova-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/proxima/ProximaNova-Regular.woff") format("woff"), url("../fonts/proxima/ProximaNova-Regular.ttf") format("truetype"), url("../fonts/proxima/ProximaNova-Regular.svg#Proxima Regular") format("svg");
+    font-style: normal;
+    font-weight: normal;
+}
+
+$color-black: #000 !default;
+$color-dark: #3F4044;
+$color-light: #fff;
+$color-selected: #0BB8DC;
+$color-grey-bg: #EDEDED;
+
+$color-day-mid: #e6fbff;
+$color-day-sel: #00b5d3;
+
+.pegasus-cal{
+    font-family: "Proxima Regular";
+    max-width: 480px;
+    width: 100%;
+    font-size: 12px;
+    /*@include border-radius(4px 4px 3px 3px);*/
+    @include box-shadow(0 1px 2px 0 rgba(0, 0, 0, 0.3));
+    overflow: hidden;
+    display: none;
+    z-index: 99999;
+    position: absolute;
+    background: $color-light;
+    .cal-head{
+        background: $color-dark;        
+        color: $color-light;
+        overflow: hidden;
+        line-height: 40px;
+        height: 40px;
+        padding: 0 10px;
+        @include transition(all 0.25s linear 0s);
+        .head-left{
+            text-transform: uppercase; 
+            float: left;
+            font-size: 10px;
+            margin: 0 0 0 -15px;
+            label{
+                line-height: 40px;
+                float: left;
+                cursor: pointer;
+                &.active{
+                    color: $color-selected;
+                }
+            }
+        }
+        .head-right{
+            float: right;
+            height: 40px;
+            /*overflow: hidden;*/
+            text-align: right;
+            @include transition(all 0.25s ease-in-out 0s);
+        }
+        &.show-return{
+            background: lighten($color-dark, 10%);
+            .head-right{
+                margin-top: -40px;
+            }
+        }
+        input[type="radio"]{
+            float: left;
+            margin: 14px 4px 0 15px;
+            display: block;
+        }
+    }
+    .cal-body{
+        overflow: hidden;
+    }
+    .body-left{
+        width: 23%;
+        float: left;
+        background: $color-grey-bg;
+        /*padding: 2px 0;*/
+    }
+    .body-right{
+        float: left;
+        width: 77%;
+    }
+    ul.month-list{
+        position: relative;
+        overflow: hidden;
+        li{
+            line-height: 28px;
+            position: relative;
+            z-index: 3;
+            a{
+                color: $color-black;
+                padding: 0 0 0 12px;
+                display: block;
+                @include transition(all 0.2s ease 0s);
+                &:hover{
+                    /*                    background: darken($color-grey-bg , 10%);
+                                        font-size: 110%;*/
+                }
+            }
+            small{
+                color: #868686;
+                font-size: 85%;
+                margin-left: 10px;
+            }
+            /*            &.active{
+                        }*/
+            &.active-mark{
+                background: $color-light;
+                border-left: 3px solid #FF9334;
+                left: 0;
+                position: absolute;
+                z-index: 2;
+                top: 0%;
+                height: 28px;
+                width: 100%;
+                /*@include transition(all 0.15s linear 0s);*/
+            }
+        }
+    }
+
+    .days-head{
+        text-transform: uppercase; 
+        width: 97%;
+        line-height: 35px;
+        color: #7F7F7F;
+        margin-right: 24px;
+        table-layout: fixed;
+        td,th{
+            text-align: center;
+            font-weight: bold;
+        }
+    }
+
+    .month-wrapper{
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 302px;
+        .month-box{
+            position: relative;
+            /*padding: 0 0 10px 0;*/ 
+            .month-title{
+                padding: 0 0 5px 0; 
+                border-bottom: 2px solid #e1e1e1;
+                font-size: 15px;
+                position: absolute;
+                top: 10px;
+                left: 10px; 
+                z-index: 10;
+            }
+        }
+    }
+
+    .day-container{
+        &.adjust-month{
+            padding: 40px 0 0 0;
+        }
+    }
+    .day-container-table{
+        width: 100%;
+        table-layout: fixed;
+        text-align: center;
+        font-size: 15px;
+        tr{
+            height: 50px;
+        }
+        td{
+            vertical-align: middle;
+            /*cursor: pointer;*/
+            position: relative; 
+            text-align: center;
+            a{
+                display: block;
+                height: 50px;
+                color: inherit;
+            }
+            .day-num{
+                display: block;
+                padding: 12px 0 4px;
+            }
+            &.mid-daybox{
+                background-color: $color-day-mid;
+            }
+            .price{
+                color: lighten($color-black, 50%);
+                font-size: 75%;
+                display: block;
+                &.lowestPrice{
+                    color: #00a600;
+                }
+            }
+            &.tdWeekend{
+                p.holiday-desc{
+                    right: 2px;
+                    left: auto;
+                    &:after {
+                        right: 10px;
+                        left: auto;
+                    }
+                }
+                &:first-child{
+                    p.holiday-desc{
+                        right: auto;
+                        left: 40px;
+                        &:after {
+                            right: auto;
+                            left: 10px;
+                        }
+                    }
+                }
+            }
+            &:hover  {
+                background-color: darken($color-day-mid,5%);
+                p.holiday-desc{
+                    visibility: visible;
+                    @include transform(scale(1));
+                    @include opacity(1);
+                    top: 0;
+                }
+            }
+            &.disabled , &.inActiveTD{
+                color: darken($color-grey-bg , 20%);
+                background-color: $color-light;
+                a{
+                    cursor: default;
+                    .price{display: none;}
+                }
+                .holiday-desc , .holiday-ico{display: none !important; }
+            }
+            &.return-daybox , &.depart-daybox{
+                background-color: $color-day-sel;
+                color: #fff;
+                .price{
+                    color: $color-light;
+                }
+            }
+            /*&.return-daybox {opacity: 0.3; background: red;}*/
+        }
+        i.holiday-ico{
+            background: #f5951d;
+            @include border-radius(50%);
+            height: 5px;
+            right: 7px;
+            top: 7px;
+            width: 5px;
+            position: absolute;
+        }
+
+    }
+
+    .calViewMessage{
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 40px;
+        z-index: 5;
+        height: 35px;
+        line-height: 35px;
+        margin: 0;
+        display: none;
+        overflow: hidden;
+        .cal-msg-desc{
+            /*float: left;*/
+        }
+        a.close-cal{
+            position: absolute;
+            top: 10px;
+            right: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-position: -233px -52px;
+            @include opacity(0.8);
+            @include transition(all 0.25s ease-in-out 0s);
+            &:hover{
+                @include transform(rotate(90deg));
+                @include opacity(1);
+            }
+        }
+    }
+
+    .js-month-container{position: relative;}
+
+    *, *:before, *:after {
+        @include box-sizing(content-box);
+    }
+
+    p.holiday-desc{
+        &:after {
+            border-color: #333 transparent transparent;
+            border-style: solid;
+            border-width: 10px;
+            content: "";
+            height: 0;
+            left: 50px;
+            position: absolute;
+            top: 29px;
+            width: 0;
+        }
+        display: block;
+        visibility: hidden;
+        background: #333;
+        border: 1px solid #333;
+        border-radius: 3px;
+        box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 18px;
+        min-width: 100px;
+        padding: 5px 10px;
+        position: absolute;
+        text-align: center;
+        white-space: nowrap;
+        z-index: 100000;
+        margin: -30px 0 0 -36px;
+        top: -20px;
+        left: 0%;
+        cursor: default;
+        @include opacity(0);
+        @include transition(all 0.2s ease-in-out 0s);
+        @include transform(scale(1.03));
+    }
+}
